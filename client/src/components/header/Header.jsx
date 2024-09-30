@@ -3,7 +3,7 @@ import {AppBar, Toolbar, styled, Box, Typography} from '@mui/material';
 
 //components
 import Search from './Search.jsx';
-import CustomButtons from '../CustomButtons.jsx';
+import CustomButtons from './CustomButtons.jsx';
 
 
 const StyledHeader = styled(AppBar)`
