@@ -1,4 +1,6 @@
 // import './App.css'
+
+//components
 import Header from "./components/header/Header.jsx"
 
 
