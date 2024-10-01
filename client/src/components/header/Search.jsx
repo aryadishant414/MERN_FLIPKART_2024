@@ -22,6 +22,7 @@ const SearchIconWrapper = styled(Box)`
     /* border: 2px solid red; */
     color: blue;
     padding: 5px;
+    display: flex;
 `;
 
 
