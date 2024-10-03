@@ -1,6 +1,7 @@
 import Dialog from '@mui/material/Dialog';
 import { Box, TextField, Typography, Button, styled} from '@mui/material';
 import { useState } from 'react';
+import { authenticateSignup } from '../../services/api.js';
 
 
 const Component = styled(Box)`
@@ -87,6 +88,9 @@ const signupInitialValues = {
     phone: '',
 }
 
+
+
+
 const LoginDialogue = ({open, setOpen}) => {
     const [account, toggleAccount] = useState(accountInitialValues.login);
     const [signup, setSignup] = useState(signupInitialValues);
@@ -95,7 +99,7 @@ const LoginDialogue = ({open, setOpen}) => {
     const onInputChange = (e) => {
         /* console.log("Printing Event", e.target.value); */
         setSignup({...signup, [e.target.name] : e.target.value });
-        console.log(signup);
+        /* console.log(signup); */
     }
 
     const handleClose = () => {
@@ -105,6 +109,12 @@ const LoginDialogue = ({open, setOpen}) => {
 
     const toggleSignup = () => {
         toggleAccount(accountInitialValues.signup);
+    }
+
+    const signupUser = async (e) => {
+    /* console.log("USER Submitted Data is :",signup); */
+        const response = await authenticateSignup(signup);
+        console.log("Signup Response from Backend is : ",response);
     }
 
     return (
@@ -139,7 +149,7 @@ const LoginDialogue = ({open, setOpen}) => {
                                 <TextField variant="standard" name='email' onChange={(e) => onInputChange(e)} label="Enter Email" />
                                 <TextField variant="standard" name='password' onChange={(e) => onInputChange(e)} label="Enter Password" />
                                 <TextField variant="standard" name='phone' onChange={(e) => onInputChange(e)} label="Enter Phone" />
-                                <LoginButton >Continue</LoginButton>
+                                <LoginButton onClick={() => {signupUser()}}>Continue</LoginButton>
                             </Wrapper>
                             )
                         }
