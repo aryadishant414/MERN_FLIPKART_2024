@@ -2,6 +2,8 @@ import Dialog from '@mui/material/Dialog';
 import { Box, TextField, Typography, Button, styled} from '@mui/material';
 import { useState } from 'react';
 import { authenticateSignup } from '../../services/api.js';
+import { DataContext } from '../../context/DataProvider.jsx';
+import { useContext } from 'react';
 
 
 const Component = styled(Box)`
@@ -95,6 +97,8 @@ const LoginDialogue = ({open, setOpen}) => {
     const [account, toggleAccount] = useState(accountInitialValues.login);
     const [signup, setSignup] = useState(signupInitialValues);
 
+    /*accesing below values from context api */
+    const {setAccount} = useContext(DataContext);
 
     const onInputChange = (e) => {
         /* console.log("Printing Event", e.target.value); */
@@ -114,7 +118,12 @@ const LoginDialogue = ({open, setOpen}) => {
     const signupUser = async (e) => {
     /* console.log("USER Submitted Data is :",signup); */
         const response = await authenticateSignup(signup);
-        console.log("Signup Response from Backend is : ",response);
+        if(!response) return ;
+
+        /* console.log("Signup Response from Backend is : ",response); */
+
+        handleClose();
+        setAccount(signup.firstname);
     }
 
     return (
