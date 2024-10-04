@@ -1,7 +1,7 @@
 import Dialog from '@mui/material/Dialog';
 import { Box, TextField, Typography, Button, styled} from '@mui/material';
 import { useState } from 'react';
-import { authenticateSignup } from '../../services/api.js';
+import { authenticateSignup, authenticateLogin } from '../../services/api.js';
 import { DataContext } from '../../context/DataProvider.jsx';
 import { useContext } from 'react';
 
@@ -68,6 +68,14 @@ const CreateAccount = styled(Typography)`
 
 `;
 
+const Error = styled(Typography)`
+    font-size: 10px;
+    color: #ff6161;
+    line-height: 0;
+    margin-top: 10px;
+    font-weight: 600;
+`;
+
 const accountInitialValues = {
     login: {
         view: 'login',
@@ -90,12 +98,19 @@ const signupInitialValues = {
     phone: '',
 }
 
+const loginInitialValues = {
+    username: '',
+    password: '',
+}
+
 
 
 
 const LoginDialogue = ({open, setOpen}) => {
     const [account, toggleAccount] = useState(accountInitialValues.login);
     const [signup, setSignup] = useState(signupInitialValues);
+    const [login, setLogin] = useState(loginInitialValues);
+    const [error, setError] = useState(false);
 
     /*accesing below values from context api */
     const {setAccount} = useContext(DataContext);
@@ -106,9 +121,14 @@ const LoginDialogue = ({open, setOpen}) => {
         /* console.log(signup); */
     }
 
+    const onValueChange = (e) => {
+        setLogin({...login, [e.target.name] : e.target.value});
+    }
+
     const handleClose = () => {
         setOpen(false);
         toggleAccount(accountInitialValues.login)
+        setError(false);
     }
 
     const toggleSignup = () => {
@@ -126,6 +146,22 @@ const LoginDialogue = ({open, setOpen}) => {
         setAccount(signup.firstname);
     }
 
+    const loginUser = async() => {
+        const response = await authenticateLogin(login);
+
+        console.log("Data recived from backend on User Login is :" , response);
+
+        /*check */
+        if(response.status === 200) {
+        handleClose();
+        setAccount(response.data.user.firstname);  
+        } else {
+            setError(true);
+        }
+  
+
+    }
+
     return (
         <>
             <Dialog  open={open} onClose={handleClose} PaperProps={{ sx: { maxWidth: 'unset' } }}>
@@ -140,10 +176,13 @@ const LoginDialogue = ({open, setOpen}) => {
                             account.view === 'login' ?
                             (
                             <Wrapper>
-                                <TextField variant="standard" label="Enter Email/Mobile number" />
-                                <TextField variant="standard" label="Enter Password" />
+                                <TextField variant="standard" name='username' onChange={(e) => onValueChange(e)} label="Enter username" />
+                                
+                                {error && <Error>Please enter valid username or password</Error>}
+                                <TextField variant="standard" name='password' onChange={(e) => onValueChange(e)} label="Enter Password" />
+                                
                                 <Text>By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</Text>
-                                <LoginButton >Login</LoginButton>
+                                <LoginButton onClick={() => loginUser()} >Login</LoginButton>
                                 <Typography style={{textAlign:'center'}}>OR</Typography>
                                 <RequestOTP>Request OTP</RequestOTP>
                                 <CreateAccount onClick={() => toggleSignup()}>New to Flipkart? Create an account</CreateAccount>

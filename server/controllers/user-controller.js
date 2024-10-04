@@ -20,3 +20,23 @@ export const userSignUp = async (req, res) => {
         res.status(500).send({meessage: "Internal Server error while Sign up new user"}, error.message);
     }
 }
+
+export const userLogin = async (req, res) => {
+    try {
+         const username = req.body.username;
+         const password = req.body.password;
+         
+         const user = await User.findOne({username:username, password: password});
+         if(!user) {
+            return res.status(401).send({message:"Invalid Credentials"});
+         }
+         res.status(200).send(
+            {
+                message:`${username} Login Successfull`,
+                user: user
+            }
+        );
+    } catch (error) {
+        res.status(500).send({message: "Internal Server error while Login user"}, error.message);
+    }
+}

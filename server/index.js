@@ -21,6 +21,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json({extended: true}));  //with the help of this line backend understands the JSON data and easily process it
 app.use(bodyParser.urlencoded({extended: true}));
 
+// user Authentication
 app.use("/api/v1/auth", Router);
 
 
