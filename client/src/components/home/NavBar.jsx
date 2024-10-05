@@ -1,11 +1,21 @@
 import {navData} from '../../constants/data.js'
 import { Box, styled, Typography } from '@mui/material';
 
-const Component = styled(Box)`
-    display: flex;
-    margin: 55px 130px 0 130px;
-    justify-content: space-between;
-`;
+const Component = styled(Box) (({theme}) => ({ 
+    display: 'flex',
+    margin: '55px 130px 0 130px',
+    justifyContent: 'space-between',
+    
+    // overflow: 'overlay',  // navbar ke items par ekk scroll-bar aa jaaega
+    overflow: 'hidden', // this will hide the by default scroll bar on our whole screen
+
+    // responsive
+    [theme.breakpoints.down('lg')]: {
+        margin: 0
+    }
+ }));
+    
+
 
 const Container = styled(Box)`
     /* border: 2px solid red; */
