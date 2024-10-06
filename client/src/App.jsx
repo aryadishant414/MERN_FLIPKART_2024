@@ -8,18 +8,26 @@ import Home from "./components/home/Home.jsx"
 import { Box } from "@mui/material";
 import { DataProvider } from "./context/DataProvider.jsx";
 
-
+import {BrowserRouter, Routes, Route} from 'react-router-dom';  //Enables to perform routing in our application
+import DetailView from "./components/details/DetailView.jsx";
 
 function App() {
 
 
   return (
     <DataProvider>
-      <Header />
-      
-      <Box style={{marginTop: 54}}>
-        <Home />
-      </Box>
+      <BrowserRouter>
+        <Header />
+        
+        <Box style={{marginTop: 54}}>
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/product/:idxx" element={<DetailView />} />
+          </Routes> 
+
+        </Box>
+      </BrowserRouter>
     </DataProvider>
   )
 }
