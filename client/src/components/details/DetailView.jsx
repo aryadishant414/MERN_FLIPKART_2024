@@ -7,7 +7,7 @@ import { getProductDetails } from "../../redux/actions/productsActions.js";
 import {Box, Typography, styled} from '@mui/material';
 import ActionItem from "./ActionItem.jsx";
 import Grid from '@mui/material/Grid2';
-
+import ProductDetail from "./ProductDetail.jsx";
 
 
 const Component = styled(Box)`
@@ -17,11 +17,22 @@ const Component = styled(Box)`
 `;
 
 
-const Container = styled(Grid)`
-    border: 2px solid black;
-    background: #FFFFFF;
-    display: flex;
-`;
+// const Container = styled(Grid)`
+//     /* border: 2px solid black; */
+//     background: #FFFFFF;
+//     display: flex;
+// `;
+
+
+const Container = styled(Grid) ( ({theme}) => ({
+    /* border: 2px solid black; */
+    background: '#FFFFFF',
+    display: 'flex',
+    [theme.breakpoints.down('md')]: {
+        margin: 0
+    }
+}) ); 
+
 
 const RightContainer = styled(Grid)`
     margin-top: 50px;
@@ -29,8 +40,6 @@ const RightContainer = styled(Grid)`
 
 
 const DetailView = () => {
-
-    const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png';
 
     // const insideUseParams = useParams();  //just to check
     // console.log("DATA INSIDE USE PARAMS IS : ", insideUseParams);
@@ -60,20 +69,8 @@ const DetailView = () => {
                         </Grid>
 
                         {/* right part */}
-                        <RightContainer lg={8} md={8} sm={8} sx={12}>
-                            <Typography>{product.title.longTitle}</Typography>
-                            <Typography style={{fontSize: 14}}>
-                                8 Ratings & 1 Reviews
-                                <Box component="span">
-                                    hyy
-                                    <img  src={fassured} style={{width:77, marginLeft: 20}} alt="fassured" />
-                                </Box>
-                            </Typography>
-                            <Typography>
-                                <Box component="span" style={{fontSize: 28}}>₹{product.price.cost}</Box>&nbsp;&nbsp;&nbsp;
-                                <Box component="span" style={{color: '#878787'}}>₹<strike>{product.price.mrp}</strike></Box>&nbsp;&nbsp;&nbsp;
-                                <Box component="span" style={{color: '#388E3C'}}>{product.price.discount}</Box>
-                            </Typography>
+                        <RightContainer lg={8} md={8} sm={8} xs={12}>
+                            <ProductDetail product={product} />
                         </RightContainer>
 
                     </Container>      

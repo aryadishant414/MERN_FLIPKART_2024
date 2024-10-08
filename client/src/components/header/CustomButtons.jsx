@@ -8,18 +8,23 @@ import { useContext } from 'react';
 import LoginDialogue from '../login/LoginDialogue.jsx';
 import { Profile } from './Profile.jsx';
 
-const Wrapper = styled(Box)`
-    /* border: 2px solid red; */
-    display: flex;
-    margin: 0 3% 0 auto;
+const Wrapper = styled(Box) (({theme}) => ({
+        /* border: 2px solid red; */
+        display: 'flex',
+        margin: '0 3% 0 auto',
+    
+        /* nedted styling */
+        '& > button, & > p, & > div' : {
+            marginRight: '40px',
+            fontSize: '16px',
+            alignItems: 'center'
+        },
 
-    /* nedted styling */
-    & > button, & > p, & > div {
-        margin-right: 40px;
-        font-size: 16px;
-        align-items: center;
-    }
-`;
+        [theme.breakpoints.down('md')]: {
+            display: 'block'
+        }
+}));
+
 
 const Container = styled(Box)`
     display: flex;

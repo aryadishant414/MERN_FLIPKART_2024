@@ -3,12 +3,15 @@ import { Box, Button, styled } from "@mui/material";
 
 import {ShoppingCart as Cart, FlashOn as Flash } from '@mui/icons-material';
 
-const LeftContainer = styled(Box)`
-    /* border: 3px solid red; */
-    min-width: 40%;
-    padding: 40px 0 0 80px;
-`;
 
+const LeftContainer = styled(Box)  (({theme}) => ({
+        /* border: 3px solid red; */
+        minWidth: '40%',
+        padding: '40px 0 0 80px',
+        [theme.breakpoints.down('lg')]: {
+            padding: '20px 40px'
+        }
+}));
 
 const Image = styled('img')({
     // padding: '15px 20px',
