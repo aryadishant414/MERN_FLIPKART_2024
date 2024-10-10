@@ -15,7 +15,7 @@ const Wrapper = styled(Box) (({theme}) => ({
     
         /* nedted styling */
         '& > button, & > p, & > div' : {
-            marginRight: '40px',
+            marginRight: '40px !important',
             fontSize: '16px',
             alignItems: 'center'
         },
