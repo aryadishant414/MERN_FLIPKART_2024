@@ -6,7 +6,8 @@ import { getProductDetails } from "../../redux/actions/productsActions.js";
 
 import {Box, Typography, styled} from '@mui/material';
 import ActionItem from "./ActionItem.jsx";
-import Grid from '@mui/material/Grid2';
+// import Grid from '@mui/material/Grid';  // older grid
+import Grid from '@mui/material/Grid2';  //newer grid
 import ProductDetail from "./ProductDetail.jsx";
 
 

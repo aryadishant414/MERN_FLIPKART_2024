@@ -10,6 +10,7 @@ import { DataProvider } from "./context/DataProvider.jsx";
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';  //Enables to perform routing in our application
 import DetailView from "./components/details/DetailView.jsx";
+import Cart from "./components/cart/Cart.jsx";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:idxx" element={<DetailView />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes> 
 
         </Box>

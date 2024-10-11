@@ -2,6 +2,7 @@ import { Box, Table , TableBody, TableCell, TableRow, Typography, styled } from 
 import {LocalOffer as Badge} from '@mui/icons-material';
 
 
+
 const SmallText = styled(Box)`
     font-size: 14px;
     vertical-align: baseline;
