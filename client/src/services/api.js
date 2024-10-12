@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const URL = "http://localhost:8000";
 
 export const authenticateSignup = async (data) => {
@@ -17,5 +16,20 @@ export const authenticateLogin = async(data) => {
     } catch (error) {
         console.log("Error while sending Login User data from Frontend/Client-Side", error);
         return error.message;
+    }
+}
+
+
+// payment integration API
+export const paymentGateway = async(product) => {
+    try {
+        // console.log("PRODUCT IN PAYMENT GATEWAY IS : ", product);
+        const response = await axios.post(`${URL}/api/v1/auth/payment`,product);
+
+        return response;
+
+    } catch (error) {
+        console.log("Error in Payment Integration ", error);
+        
     }
 }

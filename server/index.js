@@ -6,6 +6,7 @@ import Router from './routes/route.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
+
 const app = express();
 
 var corsOptions = {

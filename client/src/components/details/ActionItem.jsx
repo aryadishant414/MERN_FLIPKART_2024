@@ -7,6 +7,13 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { addToCart } from "../../redux/actions/cartActions.js";
 
+
+
+import { paymentGateway } from "../../services/api.js";
+
+import {loadStripe} from '@stripe/stripe-js';
+
+
 const LeftContainer = styled(Box)  (({theme}) => ({
         /* border: 3px solid red; */
         minWidth: '40%',
@@ -43,13 +50,33 @@ const ActionItem = ({product}) => {
         dispatch(addToCart(id,quantity));
     }
 
+    // payment integration
+    const buyNow = async () => {
+        const response = await paymentGateway(product);
+
+        const stripe = await loadStripe("pk_test_51Q8yX5LJipLU7BRKEqNXmPhWm61xHaws7MDf2TWe5uWwfVI7xIV5PNjIm6jSVt9lBrTcB2zLEvFZ5qzYKTQK3AV200FK1oB56p");
+        // const session = await response.json;
+        // console.log("DATA INSIDE SESSION IN BUYNOW IS : ", session);
+        console.log("DATA INSIDE RESPONSE IN BUYNOW IS : ", response.data);
+        
+        const result = stripe.redirectToCheckout({
+            sessionId: response.data.id
+        });
+
+        if(!result) {
+            console.log("Error in payment integration by CLient Side");
+            
+        }
+        
+    }
+
     return (
         <LeftContainer>
             <Box style={{ padding: '15px 20px', border: '1px solid #f0f0f0'}}>
                 <Image src={product.detailUrl} alt="product" />
             </Box>
             <StyledButton onClick={addItemToCart} variant="contained" style={{marginRight: 10, background: '#ff9f00'}} ><Cart />Add to Cart</StyledButton>
-            <StyledButton variant="contained" style={{background: '#fb541b'}}><Flash />Buy Now</StyledButton>
+            <StyledButton onClick={() => buyNow()} variant="contained" style={{background: '#fb541b'}}><Flash />Buy Now</StyledButton>
         </LeftContainer>
     )
 }

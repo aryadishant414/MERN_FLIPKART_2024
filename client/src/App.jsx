@@ -12,6 +12,9 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';  //Enables to per
 import DetailView from "./components/details/DetailView.jsx";
 import Cart from "./components/cart/Cart.jsx";
 
+import Success from "./components/success.jsx";
+import Cancel from "./components/cancel.jsx";
+
 function App() {
 
 
@@ -26,6 +29,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/product/:idxx" element={<DetailView />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/cancel" element={<Cancel />} />
           </Routes> 
 
         </Box>
