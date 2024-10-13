@@ -52,12 +52,15 @@ const ActionItem = ({product}) => {
 
     // payment integration
     const buyNow = async () => {
-        const response = await paymentGateway(product);
+        const singleProductPayload = {singleProduct: [product]};
+        console.log("INSIDE SINGLE PRODUCT IN BUYNOW IS : ", product);
+        const response = await paymentGateway(singleProductPayload);
+
+        console.log("DATA INSIDE RESPONSE IN BUYNOW IS : ", response);
 
         const stripe = await loadStripe("pk_test_51Q8yX5LJipLU7BRKEqNXmPhWm61xHaws7MDf2TWe5uWwfVI7xIV5PNjIm6jSVt9lBrTcB2zLEvFZ5qzYKTQK3AV200FK1oB56p");
-        // const session = await response.json;
-        // console.log("DATA INSIDE SESSION IN BUYNOW IS : ", session);
-        console.log("DATA INSIDE RESPONSE IN BUYNOW IS : ", response.data);
+        const session = await response.json;
+        console.log("DATA INSIDE SESSION IN BUYNOW IS : ", session);
         
         const result = stripe.redirectToCheckout({
             sessionId: response.data.id

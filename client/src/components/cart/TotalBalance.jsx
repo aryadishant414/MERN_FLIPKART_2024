@@ -55,7 +55,7 @@ const TotalBalance = ({cartItems}) => {
 
 
     return (
-        <Box style={{border:'2px solid black'}}>
+        <Box>
             <Header>
                 <Heading>PRICE DETAILS</Heading>
             </Header>

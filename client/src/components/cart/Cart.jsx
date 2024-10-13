@@ -7,9 +7,14 @@ import EmptyCart from "./EmptyCart.jsx";
 // import Grid from '@mui/material/Grid2'; // For the new Grid
 
 
+import { paymentGateway } from "../../services/api.js";
+
+import {loadStripe} from '@stripe/stripe-js';
+
+
 
 const Container = styled(Grid) (({theme}) => ({
-    border: '2px solid orange',
+    // border: '2px solid orange',
     padding: '30px 135px',
     [theme.breakpoints.down('md')]: {
         padding: '15px 0px'
@@ -54,6 +59,31 @@ const LeftComponent = styled(Grid) (({theme}) => ({
 const Cart = () => {
 
     const {cartItems} = useSelector(state => state.cart);
+    console.log("INSIDE CART AND CART ITEMS : ",cartItems);
+    
+    const buyNow = async () => {
+
+        console.log("INSIDE buyNOW");
+        
+        const multipleProductPayload = {multipleProducts: cartItems}
+        const response = await paymentGateway(multipleProductPayload);
+
+        const stripe = await loadStripe("pk_test_51Q8yX5LJipLU7BRKEqNXmPhWm61xHaws7MDf2TWe5uWwfVI7xIV5PNjIm6jSVt9lBrTcB2zLEvFZ5qzYKTQK3AV200FK1oB56p");
+        // const session = await response.json;
+        // console.log("DATA INSIDE SESSION IN BUYNOW IS : ", session);
+        console.log("DATA INSIDE RESPONSE IN BUYNOW IS : ", response);
+        
+        const result = stripe.redirectToCheckout({
+            sessionId: response.data.id
+        });
+
+        if(!result) {
+            console.log("Error in payment integration by CLient Side");
+            
+        }
+        
+    }
+
 
     return (
         <>
@@ -73,7 +103,7 @@ const Cart = () => {
                                 ))
                             }
                             <ButtonWrapper>
-                                <StyledButton>Place Order</StyledButton>
+                                <StyledButton onClick={buyNow}>Place Order</StyledButton>
                             </ButtonWrapper>
                         </LeftComponent>
                         <Grid item lg={3} md={3} sm={12} xs={12}>

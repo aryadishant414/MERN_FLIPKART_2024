@@ -23,8 +23,13 @@ export const authenticateLogin = async(data) => {
 // payment integration API
 export const paymentGateway = async(product) => {
     try {
-        // console.log("PRODUCT IN PAYMENT GATEWAY IS : ", product);
-        const response = await axios.post(`${URL}/api/v1/auth/payment`,product);
+        console.log("INSIDE payment Gateway in frontend");
+        console.log("INSIDE PRODUCT IN paymentGateway is : ", product);
+        
+        const response = await axios.post(`${URL}/api/v1/auth/payment`, product);
+
+        console.log("INSIDE RESPONSE of payment gateway IN FRONTEND", response);
+        
 
         return response;
 
