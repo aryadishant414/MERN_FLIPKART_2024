@@ -35,4 +35,5 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+// this below line is creating the user collection in our MongoDb Database
 export const User = mongoose.model('User', userSchema);
