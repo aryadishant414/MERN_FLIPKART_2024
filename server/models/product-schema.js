@@ -19,4 +19,5 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// this below line is creating product collection in our MongoDb Database
 export const Product = mongoose.model('Product', productSchema);
