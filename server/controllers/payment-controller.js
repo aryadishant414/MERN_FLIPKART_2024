@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 
 const stripe = new Stripe("sk_test_51Q8yX5LJipLU7BRKCuHzFSbg87GcEAhWVcA3ywDQ49L9ztCLlHPm6PsbkKvYdOxdcrpIUFrQfaqU0TKqR07xNCwc006egnVMvT");
 
-// payment integration Backend API
+// stripe payment integration Backend API
 export const addPaymentGateway = async (req, res) => {
     try {
         const product = req.body;
